@@ -1,0 +1,17 @@
+{
+  "name": "v-lidity-mono",
+  "version": "0.1.0",
+  "description": "A VueJS 3 module for exposing the form constraint API in your forms.",
+  "main": "index.js",
+  "author": "nick_somebody",
+  "license": "MIT",
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "build": "lerna run build --scope=v-lidity",
+    "install": "yarn build && yarn bootstrap",
+    "serve": "lerna run serve --scope=v-lidity-demo"
+  },
+  "devDependencies": {
+    "lerna": "^3.22.1"
+  }
+}
