@@ -1,44 +1,16 @@
-import { reactive, computed, nextTick } from "vue";
-
-const inputTag = "INPUT";
-const inputTags = [inputTag, "SELECT", "TEXTAREA"];
-const buttonTypes = ["button", "submit", "reset"];
+import { reactive, nextTick } from "vue";
+import { computedValidity, isInput, modelValueMatch } from "../helpers";
 
 // pass in the reactive form model
 // create a computed form derived with validity state for each item
 // now stuck on values being updated before validity state is re reported
 export default {
-  copyValidity(validity) {
-    const obj = {};
-    for (const key in validity) {
-      const element = validity[key];
-      obj[key] = element;
-    }
-    return obj;
-  },
-  computedValidity(inputElement, modelObj) {
-    return computed(() => {
-      return {
-        ...this.copyValidity(inputElement.validity),
-        modelValue: modelObj[inputElement.name]
-      };
-    });
-  },
   buildInput(inputElement, modelObj) {
     const input = {
       $el: inputElement,
-      $validity: this.computedValidity(inputElement, modelObj)
+      $validity: computedValidity(inputElement, modelObj)
     };
     return input;
-  },
-  isInput({ tagName, type }) {
-    if (inputTags.includes(tagName)) {
-      return !buttonTypes.includes(type);
-    }
-    return false;
-  },
-  modelValueMatch(modelObj, element) {
-    return Object.prototype.hasOwnProperty.call(modelObj, element.name);
   },
   setupForm(form, modelObj) {
     const inputObj = {};
@@ -47,11 +19,11 @@ export default {
       const element = form.elements[i];
 
       let reactiveInpt;
-      if (this.isInput(element)) {
-        const hasModelValue = this.modelValueMatch(modelObj, element);
+      if (isInput(element)) {
+        const hasModelValue = modelValueMatch(modelObj, element);
         if (!hasModelValue) {
           console.warn(
-            `[v-constrain]: Unable to match a model value for field ${element.name}`
+            `[v-lidity]: Unable to match a model value for field ${element.name}`
           );
           continue;
         }

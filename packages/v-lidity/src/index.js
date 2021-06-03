@@ -2,7 +2,7 @@
 import { VueLidity } from "./components";
 import { VLidity } from "./directives";
 
-export { VueLidity, VLidity } 
+export { VueLidity, VLidity }
 
 export default {
   install(VueApp, options={}) {

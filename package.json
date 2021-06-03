@@ -9,7 +9,7 @@
     "bootstrap": "lerna bootstrap",
     "build": "lerna run build --scope=v-lidity",
     "install": "yarn build && yarn bootstrap",
-    "serve": "lerna run serve --scope=v-lidity-demo"
+    "serve": "lerna run serve --scope=v-lidity-demo --stream"
   },
   "devDependencies": {
     "lerna": "^3.22.1"
